@@ -1,0 +1,15 @@
+{
+  "name": "canvas-lasso",
+  "version": "1.0.0",
+  "description": "Lasso for HTML canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "canvas-lasso"
+  },
+  "author": "Alexis Pister",
+  "license": "ISC"
+}
