@@ -1,4 +1,4 @@
-export default class LassoCanvas {
+class LassoCanvas {
     constructor() {
         this.points = [];
         this.isDrawing = false;
@@ -153,3 +153,5 @@ export default class LassoCanvas {
         this.ctx.restore();
     }
 }
+
+module.exports = LassoCanvas;
