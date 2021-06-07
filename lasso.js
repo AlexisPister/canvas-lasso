@@ -28,7 +28,11 @@ export default class LassoCanvas {
         this.canvas.onmousedown = (e) => {
             this.isDrawing = true;
             this.initItemsCb(this.items);
-            this.start = {x: e.clientX, y: e.clientY} ;
+
+            let rect = e.target.getBoundingClientRect();
+            let x = e.clientX - rect.left; //x position within the element.
+            let y = e.clientY - rect.top;  //y position within the element.
+            this.start = {x: x, y: y};
             this.points = [];
             this.points.push(this.start);
             this.renderSelection();
@@ -37,11 +41,15 @@ export default class LassoCanvas {
 
     onMouseMove() {
         this.canvas.onmousemove = (e) => {
-          if (this.isDrawing == false) {
-            return;
-          }
-          this.points.push({x: e.clientX, y: e.clientY} );
-          this.render();
+            if (this.isDrawing == false) {
+                return;
+            }
+
+            let rect = e.target.getBoundingClientRect();
+            let x = e.clientX - rect.left; //x position within the element.
+            let y = e.clientY - rect.top;  //y position within the element.
+            this.points.push({x: x, y: y} );
+            this.render();
         };
     }
 
