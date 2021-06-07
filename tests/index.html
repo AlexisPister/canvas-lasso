@@ -53,7 +53,7 @@
             }
 
             ctx.beginPath();
-            ctx.rect(transform.invertX(p.x), transform.invertY(p.y), 10, 10);
+            ctx.rect(transform.applyX(p.x), transform.applyY(p.y), 10, 10);
             ctx.fill();
             ctx.stroke();
             ctx.closePath();

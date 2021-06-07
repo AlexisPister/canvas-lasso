@@ -99,8 +99,8 @@ export default class LassoCanvas {
 
             let itemX, itemY;
             if (this.transform) {
-                itemX = this.transform.invertX(item.x);
-                itemY = this.transform.invertY(item.y);
+                itemX = this.transform.applyX(item.x);
+                itemY = this.transform.applyY(item.y);
             } else {
                 itemX = item.x;
                 itemY = item.y;
