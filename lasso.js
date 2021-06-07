@@ -12,7 +12,12 @@ export default class LassoCanvas {
         this.selectItemsCb = selectItemsCb;
         this.initItemsCb = initItemsCb;
         this.renderCb = renderCb;
-        this.onEnd = endSelectionCb;
+
+        if (endSelectionCb) {
+            this.onEnd = endSelectionCb;
+        } else {
+            this.onEnd = renderCb;
+        }
 
         this.onMouseDown();
         this.onMouseMove();
@@ -46,13 +51,12 @@ export default class LassoCanvas {
             this.points.push(this.start);
             this.selectItems();
 
-            this.onEnd(this.ctx);
+            this.onEnd();
         };
     }
 
     selectItems(){
         this.selectedItems = this.items.filter(item => this.setSelection(item));
-        console.log(this.selectedItems);
         this.selectItemsCb(this.selectedItems);
     }
 
@@ -142,14 +146,12 @@ export default class LassoCanvas {
     }
 
     render(){
-        this.ctx.clearRect(0, 0, 1000, 1000, 'white');
-        this.ctx.save()
+        this.ctx.save();
 
+        this.ctx.clearRect(0, 0, 1000, 1000, 'white');
+        this.renderCb();
         this.renderSelection();
-        this.renderCb(this.ctx);
 
         this.ctx.restore();
     }
 }
-
-// module.exports = LassoCanvas;

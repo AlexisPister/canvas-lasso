@@ -25,18 +25,15 @@
         })
     }
 
-    function endSelection(ctx) {
-        renderPlot(ctx);
-    }
-
-
     let points = [{x:10, y:10}, {x:50, y:254}, {x:234, y:100}, {x:300, y:200}]
 
-    function renderPlot(ctx) {
-        renderShapes(ctx);
-    }
+    function render() {
+        let canvas = document.querySelector("canvas");
+        let ctx = canvas.getContext("2d");
 
-    function renderShapes(ctx) {
+        ctx.clearRect(0, 0, 1000, 1000, 'white');
+
+
         ctx.setLineDash([0]);
         ctx.strokeStyle = 'black';
 
@@ -56,12 +53,12 @@
         })
     }
 
-    let canvas = document.querySelector("canvas");
-    let ctx = canvas.getContext("2d");
-    renderPlot(ctx);
+    // let canvas = document.querySelector("canvas");
+    // let ctx = canvas.getContext("2d");
+    render();
 
     let lasso = new LassoCanvas()
-    lasso.init(document.querySelector("canvas"), points, selectItemsCb, itemsInit, renderShapes, endSelection);
+    lasso.init(document.querySelector("canvas"), points, selectItemsCb, itemsInit, render);
 </script>
 </body>
 </html>
