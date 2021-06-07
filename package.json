@@ -1,6 +1,6 @@
 {
   "name": "canvas-lasso",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Lasso for HTML canvas",
   "main": "index.js",
   "scripts": {
