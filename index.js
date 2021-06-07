@@ -1,4 +1,5 @@
-// import LassoCanvas from "./lasso.js";
-const LassoCanvas = require("./lasso.js");
+import LassoCanvas from "./lasso.js";
+// const LassoCanvas = require("./lasso.js");
 
-module.exports = LassoCanvas;
+// module.exports = LassoCanvas;
+export {LassoCanvas};

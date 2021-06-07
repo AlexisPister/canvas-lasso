@@ -1,4 +1,4 @@
-class LassoCanvas {
+export default class LassoCanvas {
     constructor() {
         this.points = [];
         this.isDrawing = false;
@@ -44,7 +44,6 @@ class LassoCanvas {
         this.canvas.onmouseup = (e) => {
             this.isDrawing = false;
             this.points.push(this.start);
-            // this.setSelection();
             this.selectItems();
 
             this.onEnd(this.ctx);
@@ -147,11 +146,10 @@ class LassoCanvas {
         this.ctx.save()
 
         this.renderSelection();
-        // this.renderCb(this.ctx);
-        this.onEnd(this.ctx);
+        this.renderCb(this.ctx);
 
         this.ctx.restore();
     }
 }
 
-module.exports = LassoCanvas;
+// module.exports = LassoCanvas;
