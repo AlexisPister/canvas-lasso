@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/6.7.0/d3.min.js"></script>
 <body>
 
 <div>
@@ -34,6 +35,7 @@
     }
 
     let points = [{x:10, y:10}, {x:50, y:254}, {x:234, y:100}, {x:300, y:200}]
+    let transform = d3.zoomIdentity;
 
     function render() {
         ctx.clearRect(0, 0, 1000, 1000, 'white');
@@ -51,7 +53,7 @@
             }
 
             ctx.beginPath();
-            ctx.rect(p.x, p.y, 10, 10);
+            ctx.rect(transform.invertX(p.x), transform.invertY(p.y), 10, 10);
             ctx.fill();
             ctx.stroke();
             ctx.closePath();
@@ -63,9 +65,17 @@
     render();
 
     let lasso = new LassoCanvas()
-    lasso.init(document.querySelector("canvas"), points, selectItemsCb, itemsInit, render);
+    lasso.init(document.querySelector("canvas"), points, selectItemsCb, itemsInit, render, null, transform);
 
-    lasso.deactivate();
+    d3.select("canvas")
+        .call(d3.zoom()
+            .on("zoom", (e) => {
+                transform = e.transform;
+                lasso.transform = e.transform;
+                render();
+            }));
+
+    // lasso.deactivate();
     canvas.addEventListener('mousedown', (e) => {
         console.log("MOUSE DOWN");
     })

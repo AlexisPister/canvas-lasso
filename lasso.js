@@ -4,7 +4,7 @@ export default class LassoCanvas {
         this.isDrawing = false;
     }
 
-    init(canvas, items, selectItemsCb, initItemsCb, renderCb, endSelectionCb, onMouseDownCb, transform) {
+    init(canvas, items, selectItemsCb, initItemsCb, renderCb, endSelectionCb, transform) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.items = items;
@@ -12,7 +12,6 @@ export default class LassoCanvas {
         this.selectItemsCb = selectItemsCb;
         this.initItemsCb = initItemsCb;
         this.renderCb = renderCb;
-        this.onMouseDownCb = onMouseDownCb;
         this.transform = transform;
 
         this.activated = true;
@@ -99,6 +98,7 @@ export default class LassoCanvas {
             var line = {start: start, end: end};
 
             let itemX, itemY;
+            console.log(this.transform);
             if (this.transform) {
                 itemX = this.transform.invertX(item.x);
                 itemY = this.transform.invertY(item.y);
