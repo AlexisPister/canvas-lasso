@@ -4,7 +4,7 @@ export default class LassoCanvas {
         this.isDrawing = false;
     }
 
-    init(canvas, items, selectItemsCb, initItemsCb, renderCb, endSelectionCb) {
+    init(canvas, items, selectItemsCb, initItemsCb, renderCb, endSelectionCb, onMouseDownCb) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.items = items;
@@ -12,6 +12,8 @@ export default class LassoCanvas {
         this.selectItemsCb = selectItemsCb;
         this.initItemsCb = initItemsCb;
         this.renderCb = renderCb;
+        this.onMouseDownCb = onMouseDownCb;
+        this.activated = true;
 
         if (endSelectionCb) {
             this.onEnd = endSelectionCb;
@@ -24,8 +26,21 @@ export default class LassoCanvas {
         this.onMouseUp();
     }
 
+    activate() {
+        this.activated = true;
+    }
+
+    deactivate() {
+        this.activated = false;
+    }
+
     onMouseDown() {
         this.canvas.onmousedown = (e) => {
+            if (!this.activated) {
+                return;
+            }
+            e.stopImmediatePropagation();
+
             this.isDrawing = true;
             this.initItemsCb(this.items);
 
@@ -55,6 +70,8 @@ export default class LassoCanvas {
 
     onMouseUp() {
         this.canvas.onmouseup = (e) => {
+            if (!this.activated) return;
+
             this.isDrawing = false;
             this.points.push(this.start);
             this.selectItems();
@@ -120,7 +137,6 @@ export default class LassoCanvas {
             return false;
         }
         if (intercessionCount & 1) {
-            console.log("true");
             return true;
         } else {
             return false;

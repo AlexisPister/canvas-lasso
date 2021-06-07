@@ -8,10 +8,6 @@
 <body>
 
 <div>
-    <div>
-
-    </div>
-
     <canvas width="1000" height="700">
     </canvas>
 </div>
@@ -22,9 +18,11 @@
 <script type="module">
     import LassoCanvas from "../lasso.js";
 
+    let canvas = document.querySelector("canvas");
+    let ctx = canvas.getContext("2d");
+
     let selectItemsCb = (selected) => {
         selected.forEach(item => {
-            console.log("i ", item)
             item.selected = true;
         })
     }
@@ -38,9 +36,6 @@
     let points = [{x:10, y:10}, {x:50, y:254}, {x:234, y:100}, {x:300, y:200}]
 
     function render() {
-        let canvas = document.querySelector("canvas");
-        let ctx = canvas.getContext("2d");
-
         ctx.clearRect(0, 0, 1000, 1000, 'white');
 
 
@@ -48,7 +43,7 @@
         ctx.strokeStyle = 'black';
 
         points.forEach(p => {
-            console.log(p)
+            // console.log(p)
             if (p.selected == true) {
                 ctx.fillStyle = "red";
             } else {
@@ -69,6 +64,12 @@
 
     let lasso = new LassoCanvas()
     lasso.init(document.querySelector("canvas"), points, selectItemsCb, itemsInit, render);
+
+    lasso.deactivate();
+    canvas.addEventListener('mousedown', (e) => {
+        console.log("MOUSE DOWN");
+    })
+
 </script>
 </body>
 </html>
